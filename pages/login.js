@@ -38,9 +38,6 @@ const login = () => {
         localStorage.setItem('user', values.email);
         localStorage.setItem('pass', values.password);
     }
-
-  
-  
     return (
       <Body>
           <div className={classes.paper}>
