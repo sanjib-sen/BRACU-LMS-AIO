@@ -7,15 +7,16 @@ import { LocalStorage } from "node-localstorage";
 global.localStorage = new LocalStorage('./scratch');
 
 export default async (req, res) =>{
-    res.status(200).json({'assesments': await getdata()})
+    res.status(200).json({'courses': await getdata()})
 }
 // { headless: false }
+
 async function getdata(){
 
     const browser = await puppeteer.launch({ headless: false });
     let page = await browser.newPage();
     const link =
-      "https://bux.bracu.ac.bd/courses/course-v1:buX+FRN101+2020_Summer/course/";
+      "https://bux.bracu.ac.bd/dashboard";
 
     await page.goto("https://bux.bracu.ac.bd/login"), 
     await page.type("#login-email", localStorage.getItem('email'), { delay: 30 });
@@ -27,38 +28,16 @@ async function getdata(){
     let texts = await page.evaluate(() => {
       data = [];
       const parents = document.getElementsByClassName(
-        "localized-datetime subtitle-name"
+        "action action-more"
       );
   
       for (var parent of parents) {
-        if (parent.getAttribute("data-datetime") == "") {
-          continue;
-        }
-  
-        const childtitle =
-          parent.parentElement.parentElement.parentElement.firstElementChild;
-        title = childtitle.innerHTML.trim();
-  
-        if (title == "") {
-          const childtitle =
-            parent.parentElement.parentElement.parentElement.firstElementChild
-              .nextElementSibling;
-          title = childtitle.innerHTML.trim().split("\n")[0];
-        }
-  
-        typedate = parent.innerHTML.trim();
-  
-        assesmenttype = typedate.split("due")[0].trim();
-        if (assesmenttype == "") assesmenttype = "Exam";
-        date = typedate.split("due")[1].trim();
-  
-        var assesment = {
-          title: title,
-          raw: parent.getAttribute("data-datetime"),
-          type: assesmenttype,
-          date: date,
+        var course = {
+          title: parent.getAttribute("data-course-name"),
+          id: parent.getAttribute("data-course-number"),
+          link: 'https://bux.bracu.ac.bd/courses/'+parent.parentNode.getAttribute('data-course-key')+'/course/',
         };
-        data.push(assesment);
+        data.push(course);
       }
       return data;
     });

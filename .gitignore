@@ -5,3 +5,5 @@ backend/data/config.json
 backend/data/cookies.json
 pages/api/data/config.json
 pages/api/data/cookies.json
+scratch/email
+scratch/password

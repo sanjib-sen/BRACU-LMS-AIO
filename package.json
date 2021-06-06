@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "latest",
+    "@material-ui/data-grid": "^4.0.0-alpha.30",
     "clsx": "latest",
     "next": "latest",
+    "node-localstorage": "^2.2.1",
     "prop-types": "latest",
     "puppeteer": "^10.0.0",
     "react": "latest",
