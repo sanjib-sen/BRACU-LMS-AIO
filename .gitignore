@@ -1,3 +1,7 @@
 /.next
 /node_modules
 /package-lock.json
+backend/data/config.json
+backend/data/cookies.json
+pages/api/data/config.json
+pages/api/data/cookies.json

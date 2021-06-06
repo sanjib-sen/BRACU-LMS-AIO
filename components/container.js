@@ -6,7 +6,7 @@ import Footer from './footer'
 
 export default function Body({children}) {
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main">
       <CssBaseline />
       {children}
       <Footer/>
