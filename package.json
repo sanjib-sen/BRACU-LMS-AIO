@@ -6,11 +6,13 @@
     "@material-ui/core": "latest",
     "@material-ui/data-grid": "^4.0.0-alpha.30",
     "clsx": "latest",
+    "js-cookie": "^2.2.1",
     "next": "latest",
     "node-localstorage": "^2.2.1",
     "prop-types": "latest",
     "puppeteer": "^10.0.0",
     "react": "latest",
+    "react-alert-template-mui": "^1.0.7",
     "react-dom": "latest",
     "react-hook-form": "^7.8.1"
   },
@@ -19,5 +21,10 @@
     "build": "next build",
     "start": "next start",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }

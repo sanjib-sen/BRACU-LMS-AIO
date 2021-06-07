@@ -5,23 +5,17 @@ import { LocalStorage } from "node-localstorage";
 global.localStorage = new LocalStorage('./scratch');
 
 export default async (req, res) =>{
-    res.status(200).json({'courses': await getdata()})
+    res.status(200).json({'courses': await getdata(req.query.cookies)})
 }
 // { headless: false }
 
-async function getdata(){
+async function getdata(cookies){
 
     const browser = await puppeteer.launch({ headless: false });
     let page = await browser.newPage();
+    await page.setCookie(...cookies);
     const link =
       "https://bux.bracu.ac.bd/dashboard";
-
-    await page.goto("https://bux.bracu.ac.bd/login"), 
-    await page.type("#login-email", localStorage.getItem('email'), { delay: 30 });
-    await page.type("#login-password", localStorage.getItem('password'), { delay: 30 });
-  
-    await page.click("#login > button");
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await page.goto(link, { waitUntil: "networkidle2" });
     let texts = await page.evaluate(() => {
       data = [];
