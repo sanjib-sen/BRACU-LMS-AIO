@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
@@ -22,21 +22,21 @@ function submitHandler() {
 }
 
 const DataTable = () => {
-  // export default async function DataTable() {
-  const getData = async () => {
+  const [rows, setRow] = useState([]);
+  useEffect(() => {
     const cookies = localStorage.getItem('cookies');
-    const rows = await fetch(`http://localhost:3000/api/dashboard`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ cookies })
-    }).then((tmpres) => tmpres.json());
-    console.log(rows);
-    return {
-      props: { rows },
-    };
-  }
+    async function fetchAPI() {
+      await fetch(`http://localhost:3000/api/dashboard`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cookies })
+      }).then((tmpres) => tmpres.json())
+        .then((data) => setRow(data));
+    }
+    fetchAPI();
+  }, [])
 
   return (
     <div>
@@ -44,24 +44,21 @@ const DataTable = () => {
         Select your advised courses for this semester
       </Typography>
       <div style={{ height: 400, width: "100%" }}>
-        {/* <DataGrid
+        <DataGrid
           // rows={rows}
-          rows={getRows}
+          rows={rows}
           columns={columns}
           pageSize={5}
           checkboxSelection
           onSelectionModelChange={(e) => lst = e.selectionModel}
-        /> */}
+        />
         <Grid container align="center" justify="space-around" spacing='5' p={10} >
           <Grid item p={10} >
             {/* <Button align="center" justify="center" p={10} onClick={submitHandler}>Submit</Button> */}
-            <Button align="center" justify="center" p={10} onClick={getData}>Submit</Button>
+            <Button align="center" justify="center" p={10} onClick={submitHandler}>Submit</Button>
 
           </Grid>
         </Grid>
-
-
-
       </div>
     </div>
   );
@@ -70,6 +67,7 @@ const DataTable = () => {
 export default DataTable;
 
 // export const getStaticProps = async () => {
+
 //   const res = await fetch(`http://localhost:3000/api/dashboard`);
 //   const rows = await res.json();
 //   return {
