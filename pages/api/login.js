@@ -1,9 +1,8 @@
 
 const puppeteer = require("puppeteer");
 
-
 export default async (req, res) =>{
-    res.status(200).json(await getdata(req.query.email,req.query.pass))
+    res.status(200).json(await getdata(req.body.email,req.body.password))
 }
 
 async function getdata(email, password){

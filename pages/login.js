@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Body from "../components/container";
-
 const useStyle = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -25,7 +24,6 @@ const useStyle = makeStyles((theme) => ({
 
 const login = () => {
   const classes = useStyle();
-
   const { handleSubmit, control } = useForm({
     defaultValues: {
       email: "",
@@ -34,10 +32,18 @@ const login = () => {
   });
 
   const onSubmit = async (values) => {
-    const res = await fetch(`http://localhost:3001/api/login/${values.password}?email=${values.email}`);
-    const cookies = await res.json();
-    localStorage.setItem('cookies', cookies);
-    window.location.href = "http://localhost:3001/dashboard";
+    const email = values.email;
+    const password = values.password;
+    const res = await fetch(`http://localhost:3000/api/login`,{
+      method: 'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({email, password})
+    }).then((tmpres)=>tmpres.json());
+    const string = JSON.stringify(res);
+    localStorage.setItem('cookies',string);
+    window.location.href = "http://localhost:3000/dashboard";
 
   };
   return (
