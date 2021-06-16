@@ -27,7 +27,7 @@ export default async (req, res) => {
 
 async function getdata(email, password) {
 	// const browser = await puppeteer.launch();
-	let browser = puppeteer.launch({
+	let browser = await puppeteer.launch({
 		headless: true,
 		defaultViewport: null,
 		args: [

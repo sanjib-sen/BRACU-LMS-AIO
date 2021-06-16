@@ -1,5 +1,5 @@
 import chromium from "chrome-aws-lambda";
-
+const puppeteer = require("puppeteer");
 async function getBrowserInstance() {
 	const executablePath = await chromium.executablePath;
 
@@ -28,7 +28,7 @@ export default async (req, res) => {
 async function getdata(cookies, link) {
 	// const browser = await puppeteer.launch(); //{ headless: false }
 
-	let browser = puppeteer.launch({
+	let browser = await puppeteer.launch({
 		headless: true,
 		defaultViewport: null,
 		args: [
