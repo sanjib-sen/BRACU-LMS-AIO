@@ -9,20 +9,12 @@ async function getBrowserInstance() {
 		return puppeteer.launch({
 			args: chromium.args,
 			headless: true,
-			defaultViewport: {
-				width: 1280,
-				height: 720,
-			},
 			ignoreHTTPSErrors: true,
 		});
 	}
 
 	return chromium.puppeteer.launch({
 		args: chromium.args,
-		defaultViewport: {
-			width: 1280,
-			height: 720,
-		},
 		executablePath,
 		headless: chromium.headless,
 		ignoreHTTPSErrors: true,
@@ -42,7 +34,7 @@ async function getdata(email, password) {
 	await page.type("#login-password", password);
 
 	await page.click("#login > button");
-	await page.setDefaultNavigationTimeout(12500);
+	await page.setDefaultNavigationTimeout(9000);
 
 	try {
 		await page.waitForNavigation({ waitUntil: "networkidle2" });
