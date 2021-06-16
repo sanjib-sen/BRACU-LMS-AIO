@@ -28,7 +28,17 @@ export default async (req, res) => {
 async function getdata(cookies, link) {
 	// const browser = await puppeteer.launch(); //{ headless: false }
 
-	let browser = await getBrowserInstance();
+	let browser = puppeteer.launch({
+		headless: true,
+		defaultViewport: null,
+		args: [
+			"--no-sandbox",
+			"--disable-setuid-sandbox",
+			"--incognito",
+			"--single-process",
+			"--no-zygote",
+		],
+	});
 	let page = await browser.newPage();
 	cookies = JSON.parse(cookies);
 	await page.setCookie(...cookies);
