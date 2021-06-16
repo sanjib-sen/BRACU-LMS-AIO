@@ -1,11 +1,39 @@
-const puppeteer = require("puppeteer");
+let chrome = {};
+let puppeteer;
+
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+	// running on the Vercel platform.
+	chrome = require("chrome-aws-lambda");
+	puppeteer = require("puppeteer-core");
+} else {
+	// running locally.
+	puppeteer = require("puppeteer");
+}
 
 export default async (req, res) => {
 	res.status(200).json(await getdata(req.body.cookies, req.body.link));
 };
 
 async function getdata(cookies, link) {
-	const browser = await puppeteer.launch(); //{ headless: false }
+	// const browser = await puppeteer.launch(); //{ headless: false }
+
+	try {
+		let browser = await puppeteer.launch({
+			args: [
+				...chrome.args,
+				"--hide-scrollbars",
+				"--disable-web-security",
+			],
+			defaultViewport: chrome.defaultViewport,
+			executablePath: await chrome.executablePath,
+			headless: true,
+			ignoreHTTPSErrors: true,
+		});
+	} catch (err) {
+		console.error(err);
+		return null;
+	}
+
 	let page = await browser.newPage();
 	cookies = JSON.parse(cookies);
 	await page.setCookie(...cookies);
