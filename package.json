@@ -7,7 +7,7 @@
 		"@material-ui/data-grid": "^4.0.0-alpha.30",
 		"@material-ui/lab": "^4.0.0-alpha.58",
 		"next": "latest",
-		"puppeteer-core": "^10.0.0",
+		"puppeteer": "^10.0.0",
 		"react": "latest",
 		"react-alert-template-mui": "^1.0.7",
 		"react-dom": "latest",

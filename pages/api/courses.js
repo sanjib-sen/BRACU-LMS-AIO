@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer-core");
+const puppeteer = require("puppeteer");
 
 export default async (req, res) => {
 	res.status(200).json(await getdata(req.body.cookies, req.body.link));
