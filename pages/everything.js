@@ -7,6 +7,7 @@ const columns = [
 	{ field: "id", hide: true },
 	{ field: "raw", hide: true },
 	{ field: "date", headerName: "Deadline", width: 200 },
+	{ field: "courseID", headerName: "Course", width: 200 },
 	{ field: "type", headerName: "Assesment Type", width: 200 },
 	{
 		field: "title",
@@ -18,12 +19,12 @@ const columns = [
 
 const DataTable = () => {
 	const [courses, setCourses] = useState([]);
+	const all = [];
 	useEffect(() => {
 		var list = [];
 		const cookies = localStorage.getItem("cookies");
 		const links = localStorage.getItem("courses").split(",");
 		async function fetchAPI(link) {
-			const courseID = link.split("+")[1];
 			await fetch(`/api/courses`, {
 				method: "POST",
 				headers: {
@@ -32,57 +33,49 @@ const DataTable = () => {
 				body: JSON.stringify({ cookies, link }),
 			})
 				.then((tmpres) => tmpres.json())
-				.then((data) => list.push({ courseId: courseID, rows: data }));
+				.then((data) => list.push(data));
 		}
 
-		// One by One:
-		// async function childTask() {
-		// 	for (const link of links) {
-		// 		await fetchAPI(link).then(() => setCourses(list));
-		// 	}
-		// }
-		// Parallel:
 		async function childTask() {
 			const promises = links.map(async (link) => {
 				return await fetchAPI(link);
 			});
-
 			await Promise.all(promises);
 		}
 
 		(async () => {
-			await childTask().then(() => setCourses(list));
+			await childTask()
+				.then(() =>
+					list.map((course) => course.map((task) => all.push(task))),
+				)
+				.then(() => setCourses(all));
 		})();
 	}, []);
 
 	return (
 		<div>
 			<Typography variant="h4" align="center">
-				All Assesments by Course
+				All Assesments
 			</Typography>
+			{console.log(courses)}
 			{courses.length > 0 ? (
-				courses.map((course) => (
-					<div>
-						<Typography variant="h4" align="center">
-							{course.courseId}
-						</Typography>
-						<Grid style={{ height: 550, width: "100%" }}>
-							<DataGrid
-								disableSelectionOnClick
-								rows={course.rows}
-								columns={columns}
-								pageSize={8}
-								density
-								sortModel={[
-									{
-										field: "raw",
-										sort: "desc",
-									},
-								]}
-							/>
-						</Grid>
-					</div>
-				))
+				<div>
+					<Grid style={{ height: 900, width: "100%" }}>
+						<DataGrid
+							disableSelectionOnClick
+							rows={courses}
+							columns={columns}
+							pageSize={15}
+							density
+							sortModel={[
+								{
+									field: "raw",
+									sort: "desc",
+								},
+							]}
+						/>
+					</Grid>
+				</div>
 			) : (
 				<Typography variant="h4" align="center">
 					Retrieving Data..... <br></br> Please wait

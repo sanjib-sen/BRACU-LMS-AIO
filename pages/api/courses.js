@@ -15,6 +15,8 @@ async function getdata(cookies, link) {
 		const parents = document.getElementsByClassName(
 			"localized-datetime subtitle-name",
 		);
+		const courseid =
+			document.getElementsByClassName("course-number")[0].innerHTML;
 		count = 0;
 		for (var parent of parents) {
 			if (parent.getAttribute("data-datetime") == "") {
@@ -41,11 +43,13 @@ async function getdata(cookies, link) {
 
 			var assesment = {
 				id: count++,
+				courseID: courseid,
 				title: title,
 				raw: parent.getAttribute("data-datetime"),
 				type: assesmenttype,
 				date: date,
 			};
+			console.log(courseid);
 			data.push(assesment);
 		}
 		return data;
