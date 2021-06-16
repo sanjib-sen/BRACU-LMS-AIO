@@ -3,6 +3,8 @@ import { DataGrid } from "@material-ui/data-grid";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
+import AppNavBar from "../components/DashBar";
+import Footer from "../components/footer";
 
 const columns = [
 	{ field: "id", hide: true },
@@ -19,7 +21,7 @@ var lst = [];
 function submitHandler() {
 	console.log(lst);
 	localStorage.setItem("courses", lst);
-	window.location.href = "http://localhost:3000/courses";
+	window.location.href = "summary";
 }
 
 const DataTable = () => {
@@ -42,37 +44,41 @@ const DataTable = () => {
 
 	return (
 		<div>
-			// align="center"
-			<Typography variant="h4">
-				Select your advised courses for this semester
-			</Typography>
-			<div style={{ height: 650, width: "100%" }}>
-				<DataGrid
-					rows={rows}
-					columns={columns}
-					pageSize={10}
-					checkboxSelection
-					onSelectionModelChange={(e) => (lst = e.selectionModel)}
-				/>
-				<Grid
-					container
-					align="center"
-					justify="space-around"
-					spacing="5"
-					p={10}
-				>
-					<Grid item p={10}>
-						<Button
-							align="center"
-							justify="center"
-							p={10}
-							onClick={submitHandler}
-						>
-							Submit
-						</Button>
+			<AppNavBar></AppNavBar>
+			{rows.length > 0 ? (
+				<div style={{ height: 650, width: "100%" }}>
+					<DataGrid
+						rows={rows}
+						columns={columns}
+						pageSize={10}
+						checkboxSelection
+						onSelectionModelChange={(e) => (lst = e.selectionModel)}
+					/>
+					<Grid
+						container
+						align="center"
+						justify="space-around"
+						spacing="5"
+						p={10}
+					>
+						<Grid item p={10}>
+							<Button
+								align="center"
+								justify="center"
+								p={10}
+								onClick={submitHandler}
+							>
+								Submit
+							</Button>
+						</Grid>
 					</Grid>
-				</Grid>
-			</div>
+				</div>
+			) : (
+				<Typography variant="h4" align="center">
+					Retrieving Data.... <br></br> Please Wait
+				</Typography>
+			)}
+			<Footer />
 		</div>
 	);
 };

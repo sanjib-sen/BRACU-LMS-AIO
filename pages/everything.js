@@ -2,7 +2,21 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
+import AppNavBar from "../components/NavBar";
+import { makeStyles } from "@material-ui/core/styles";
+import Footer from "../components/footer";
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+		flexGrow: 1,
+	},
+	menuButton: {
+		marginRight: theme.spacing(2),
+	},
+	title: {
+		flexGrow: 1,
+	},
+}));
 const columns = [
 	{ field: "id", hide: true },
 	{ field: "raw", hide: true },
@@ -18,6 +32,7 @@ const columns = [
 ];
 
 const DataTable = () => {
+	const classes = useStyles();
 	const [courses, setCourses] = useState([]);
 	const all = [];
 	useEffect(() => {
@@ -57,8 +72,11 @@ const DataTable = () => {
 
 	return (
 		<div>
-			<Typography variant="h4">All Assesments</Typography>
-			{console.log(courses)}
+			<AppNavBar>
+				<Typography variant="h6" className={classes.title}>
+					All Assesments
+				</Typography>
+			</AppNavBar>
 			{courses.length > 0 ? (
 				<div>
 					<Grid style={{ height: 900, width: "100%" }}>
@@ -81,6 +99,7 @@ const DataTable = () => {
 					Retrieving Data..... <br></br> Please wait
 				</Typography>
 			)}
+			<Footer />
 		</div>
 	);
 };

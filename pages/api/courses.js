@@ -5,7 +5,7 @@ export default async (req, res) => {
 };
 
 async function getdata(cookies, link) {
-	const browser = await puppeteer.launch({ headless: false });
+	const browser = await puppeteer.launch(); //{ headless: false }
 	let page = await browser.newPage();
 	cookies = JSON.parse(cookies);
 	await page.setCookie(...cookies);

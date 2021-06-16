@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Body from "../components/container";
+
 const useStyle = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -43,7 +44,7 @@ const login = () => {
 		}).then((tmpres) => tmpres.json());
 		const string = JSON.stringify(res);
 		localStorage.setItem("cookies", string);
-		window.location.href = "http://localhost:3000/dashboard";
+		window.location.href = "dashboard";
 	};
 	return (
 		<Body>
@@ -66,11 +67,10 @@ const login = () => {
 								margin="normal"
 								required
 								fullWidth
-								// id="email"
 								label="Email Address"
-								// name="email"
-								// autoComplete="email"
-								// autoFocus
+								autoComplete="email"
+								placeholder="Your Bux Email"
+								autoFocus
 							/>
 						)}
 					/>
@@ -85,12 +85,11 @@ const login = () => {
 								margin="normal"
 								required
 								fullWidth
-								// id="password"
 								label="Password"
 								type="password"
-								// name="password"
-								// autoComplete="current-password"
-								// autoFocus
+								autoComplete="current-password"
+								autoFocus
+								placeholder="Your Bux Password"
 							/>
 						)}
 					/>

@@ -5,7 +5,7 @@ export default async (req, res) => {
 };
 
 async function getdata(cookies) {
-	const browser = await puppeteer.launch({ headless: false });
+	const browser = await puppeteer.launch();
 	let page = await browser.newPage();
 	cookies = JSON.parse(cookies);
 	const link = "https://bux.bracu.ac.bd/dashboard";

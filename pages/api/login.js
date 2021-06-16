@@ -5,7 +5,7 @@ export default async (req, res) => {
 };
 
 async function getdata(email, password) {
-	const browser = await puppeteer.launch({ headless: false });
+	const browser = await puppeteer.launch();
 	let page = await browser.newPage();
 	await page.goto("https://bux.bracu.ac.bd/login"),
 		await page.type("#login-email", email);
