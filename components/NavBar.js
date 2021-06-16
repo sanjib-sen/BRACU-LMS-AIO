@@ -27,7 +27,7 @@ export default function AppNavBar({ children }) {
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
-				<Toolbar>
+				<Toolbar variant="dense">
 					{children}
 					<Button color="inherit" href="/summary">
 						Brief

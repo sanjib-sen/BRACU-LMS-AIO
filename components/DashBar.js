@@ -25,7 +25,7 @@ export default function AppNavBar() {
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
-				<Toolbar>
+				<Toolbar variant="dense">
 					<Typography variant="h6" className={classes.title}>
 						Select Courses
 					</Typography>
