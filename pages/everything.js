@@ -6,14 +6,14 @@ import { Grid } from "@material-ui/core";
 const columns = [
 	{ field: "id", hide: true },
 	{ field: "raw", hide: true },
-	{ field: "date", headerName: "Deadline", width: 200 },
+	{ field: "date", headerName: "Deadline", width: 200, sortable: false },
 	{ field: "courseID", headerName: "Course", width: 200 },
 	{ field: "type", headerName: "Assesment Type", width: 200 },
 	{
 		field: "title",
 		headerName: "Assesment Name",
 		sortable: false,
-		width: 720,
+		width: 900,
 	},
 ];
 
@@ -46,17 +46,18 @@ const DataTable = () => {
 		(async () => {
 			await childTask()
 				.then(() =>
-					list.map((course) => course.map((task) => all.push(task))),
+					list.map(
+						async (course) =>
+							await course.map(async (task) => all.push(task)),
+					),
 				)
-				.then(() => setCourses(all));
+				.then(async () => setCourses(all));
 		})();
 	}, []);
 
 	return (
 		<div>
-			<Typography variant="h4" align="center">
-				All Assesments
-			</Typography>
+			<Typography variant="h4">All Assesments</Typography>
 			{console.log(courses)}
 			{courses.length > 0 ? (
 				<div>
@@ -66,7 +67,6 @@ const DataTable = () => {
 							rows={courses}
 							columns={columns}
 							pageSize={15}
-							density
 							sortModel={[
 								{
 									field: "raw",

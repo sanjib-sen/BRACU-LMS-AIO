@@ -6,13 +6,13 @@ import { Grid } from "@material-ui/core";
 const columns = [
 	{ field: "id", hide: true },
 	{ field: "raw", hide: true },
-	{ field: "date", headerName: "Deadline", width: 200 },
+	{ field: "date", headerName: "Deadline", width: 200, sortable: false },
 	{ field: "type", headerName: "Assesment Type", width: 200 },
 	{
 		field: "title",
 		headerName: "Assesment Name",
 		sortable: false,
-		width: 720,
+		width: 900,
 	},
 ];
 
@@ -57,9 +57,7 @@ const DataTable = () => {
 
 	return (
 		<div>
-			<Typography variant="h4" align="center">
-				All Assesments by Course
-			</Typography>
+			<Typography variant="h4">All Assesments by Course</Typography>
 			{courses.length > 0 ? (
 				courses.map((course) => (
 					<div>

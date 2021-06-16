@@ -11,7 +11,7 @@ const columns = [
 		field: "title",
 		headerName: "Course Title",
 		sortable: false,
-		width: 720,
+		width: 900,
 	},
 ];
 var lst = [];
@@ -42,10 +42,11 @@ const DataTable = () => {
 
 	return (
 		<div>
-			<Typography variant="h4" align="center">
+			// align="center"
+			<Typography variant="h4">
 				Select your advised courses for this semester
 			</Typography>
-			<div style={{ height: 600, width: "100%" }}>
+			<div style={{ height: 650, width: "100%" }}>
 				<DataGrid
 					rows={rows}
 					columns={columns}

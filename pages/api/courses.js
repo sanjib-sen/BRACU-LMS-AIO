@@ -42,14 +42,14 @@ async function getdata(cookies, link) {
 			date = typedate.split("due")[1].trim();
 
 			var assesment = {
-				id: count++,
+				id: courseid + count.toString(),
 				courseID: courseid,
 				title: title,
 				raw: parent.getAttribute("data-datetime"),
 				type: assesmenttype,
 				date: date,
 			};
-			console.log(courseid);
+			count++;
 			data.push(assesment);
 		}
 		return data;
