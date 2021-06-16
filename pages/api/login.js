@@ -1,5 +1,5 @@
 import chromium from "chrome-aws-lambda";
-
+const puppeteer = require("puppeteer");
 async function getBrowserInstance() {
 	const executablePath = await chromium.executablePath;
 
@@ -27,7 +27,17 @@ export default async (req, res) => {
 
 async function getdata(email, password) {
 	// const browser = await puppeteer.launch();
-	let browser = await getBrowserInstance();
+	let browser = puppeteer.launch({
+		headless: true,
+		defaultViewport: null,
+		args: [
+			"--no-sandbox",
+			"--disable-setuid-sandbox",
+			"--incognito",
+			"--single-process",
+			"--no-zygote",
+		],
+	});
 	let page = await browser.newPage();
 	await page.goto("https://bux.bracu.ac.bd/login"),
 		await page.type("#login-email", email);
