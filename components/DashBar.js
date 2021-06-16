@@ -29,6 +29,9 @@ export default function AppNavBar() {
 					<Typography variant="h6" className={classes.title}>
 						Select Courses
 					</Typography>
+					<Button color="inherit" href="/">
+						Home
+					</Button>
 					<Button color="inherit" onClick={logout}>
 						Logout
 					</Button>
