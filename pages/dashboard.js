@@ -45,7 +45,6 @@ const DataTable = () => {
       </Typography>
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
-          // rows={rows}
           rows={rows}
           columns={columns}
           pageSize={5}
@@ -54,9 +53,7 @@ const DataTable = () => {
         />
         <Grid container align="center" justify="space-around" spacing='5' p={10} >
           <Grid item p={10} >
-            {/* <Button align="center" justify="center" p={10} onClick={submitHandler}>Submit</Button> */}
             <Button align="center" justify="center" p={10} onClick={submitHandler}>Submit</Button>
-
           </Grid>
         </Grid>
       </div>
@@ -65,12 +62,3 @@ const DataTable = () => {
 }
 
 export default DataTable;
-
-// export const getStaticProps = async () => {
-
-//   const res = await fetch(`http://localhost:3000/api/dashboard`);
-//   const rows = await res.json();
-//   return {
-//     props: { rows },
-//   };
-// };
