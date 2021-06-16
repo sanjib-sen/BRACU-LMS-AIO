@@ -50,13 +50,27 @@ const DataTable = () => {
 		}
 		fetchAPI();
 	}, []);
+	function getData() {
+		try {
+			localStorage.getItem("cookies");
+		} catch (error) {
+			return false;
+		}
+		return true;
+	}
 
+	function goTo() {
+		if (localStorage.getItem("cookies") == null) {
+			window.location.href = "login";
+		}
+	}
 	return (
 		<div>
+			{getData() ? goTo() : ""}
 			<AppNavBar></AppNavBar>
 			{warning != null ? (
 				<Alert severity="error">
-					ভাই আমি নুব, আমি ৬ টার বেশি কোর্স সামলাতে পারিনা!
+					আমি DMC Topper না তাই ৬ টার বেশি কোর্স সামলাতে পারিনা!
 				</Alert>
 			) : (
 				""

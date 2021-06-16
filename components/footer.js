@@ -8,7 +8,7 @@ export default function Footer() {
 			<br></br>
 			<br></br>
 			<br></br>
-			{"Copyright © "}
+			{/* {"Copyright © "} */}
 			<Link
 				color="inherit"
 				href="https://www.facebook.com/matrixedraku/posts/2825513557703292"

@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppNavBar() {
 	const classes = useStyles();
-
+	function logout() {
+		localStorage.clear();
+		window.location.href = "/";
+	}
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
@@ -26,7 +29,9 @@ export default function AppNavBar() {
 					<Typography variant="h6" className={classes.title}>
 						Select Courses
 					</Typography>
-					<Button color="inherit">Logout</Button>
+					<Button color="inherit" onClick={logout}>
+						Logout
+					</Button>
 				</Toolbar>
 			</AppBar>
 			<br></br>

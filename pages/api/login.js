@@ -22,25 +22,6 @@ async function getdata(email, password) {
 		return "{}";
 	}
 
-	// var success = true;
-	// console.log(page.url());
-	// if (page.url() == "https://bux.bracu.ac.bd/dashboard") {
-	// 	success = true;
-	// }
-	// if (success == false) {
-	// 	browser.close();
-	// 	console.log("error asche");
-	// 	return "";
-	// }
-	// try {
-	// 	await page.$x(
-	// 		"/html/body/div[2]/header/div[1]/div[2]/div/div/div[1]/a/span[1]",
-	// 	);
-	// } catch (error) {
-	// 	console.log("error asche");
-	// 	return "";
-	// }
-
 	let currentcookies = await page.cookies();
 	browser.close();
 	return currentcookies;
