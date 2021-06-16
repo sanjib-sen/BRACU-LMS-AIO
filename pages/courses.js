@@ -9,13 +9,13 @@ import Footer from "../components/footer";
 const columns = [
 	{ field: "id", hide: true },
 	{ field: "raw", hide: true },
-	{ field: "date", headerName: "Deadline", width: 200, sortable: false },
-	{ field: "type", headerName: "Assesment Type", width: 200 },
+	{ field: "date", headerName: "Deadline", flex: 1.5, sortable: false },
+	{ field: "type", headerName: "Assesment Type", flex: 2.25, width: 200 },
 	{
 		field: "title",
 		headerName: "Assesment Name",
 		sortable: false,
-		width: 900,
+		flex: 10,
 	},
 ];
 
@@ -96,7 +96,7 @@ const DataTable = () => {
 
 			<AppNavBar>
 				<Typography variant="h6" className={classes.title}>
-					All Assesments by Course
+					Courses
 				</Typography>
 			</AppNavBar>
 			{courses.length > 0 ? (

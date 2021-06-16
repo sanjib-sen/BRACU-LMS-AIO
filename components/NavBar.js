@@ -30,16 +30,16 @@ export default function AppNavBar({ children }) {
 				<Toolbar>
 					{children}
 					<Button color="inherit" href="/summary">
-						Summary
+						Brief
 					</Button>
 					<Button color="inherit" href="/courses">
-						By Course
+						Courses
 					</Button>
 					<Button color="inherit" href="/everything">
-						All in One
+						All
 					</Button>
 					<Button color="inherit" href="/dashboard">
-						Change Courses
+						Change
 					</Button>
 					<Button color="inherit" onClick={logout}>
 						Logout

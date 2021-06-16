@@ -9,14 +9,14 @@ import Alert from "@material-ui/lab/Alert";
 
 const columns = [
 	{ field: "id", hide: true },
-	{ field: "course_id", headerName: "Course Short Code", width: 300 },
+	{ field: "semester", headerName: "Semester", flex: 1 },
+	{ field: "course_id", headerName: "Course Code", flex: 1 },
 	{
 		field: "title",
 		headerName: "Course Title",
 		sortable: false,
-		width: 900,
+		flex: 6,
 	},
-	{ field: "semester", headerName: "Semester", width: 300 },
 ];
 var lst = [];
 

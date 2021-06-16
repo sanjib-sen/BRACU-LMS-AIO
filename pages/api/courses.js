@@ -1,33 +1,10 @@
-import chromium from "chrome-aws-lambda";
-const puppeteer = require("puppeteer");
-async function getBrowserInstance() {
-	const executablePath = await chromium.executablePath;
-
-	if (!executablePath) {
-		// running locally
-		const puppeteer = require("puppeteer");
-		return puppeteer.launch({
-			args: chromium.args,
-			headless: true,
-			ignoreHTTPSErrors: true,
-		});
-	}
-
-	return chromium.puppeteer.launch({
-		args: chromium.args,
-		executablePath,
-		headless: chromium.headless,
-		ignoreHTTPSErrors: true,
-	});
-}
+const puppeteer = require("puppeteer-core");
 
 export default async (req, res) => {
 	res.status(200).json(await getdata(req.body.cookies, req.body.link));
 };
 
 async function getdata(cookies, link) {
-	// const browser = await puppeteer.launch(); //{ headless: false }
-
 	let browser = await puppeteer.launch({
 		headless: true,
 		defaultViewport: null,
@@ -76,7 +53,7 @@ async function getdata(cookies, link) {
 
 			assesmenttype = typedate.split("due")[0]
 				? typedate.split("due")[0].trim()
-				: " ";
+				: "";
 			if (assesmenttype == "") assesmenttype = "Exam";
 			date = typedate.split("due")[1]
 				? typedate.split("due")[1].trim()
