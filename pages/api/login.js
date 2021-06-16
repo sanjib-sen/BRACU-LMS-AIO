@@ -1,13 +1,32 @@
-let chrome = {};
-let puppeteer;
+import chromium from "chrome-aws-lambda";
 
-if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-	// running on the Vercel platform.
-	chrome = require("chrome-aws-lambda");
-	puppeteer = require("puppeteer-core");
-} else {
-	// running locally.
-	puppeteer = require("puppeteer");
+async function getBrowserInstance() {
+	const executablePath = await chromium.executablePath;
+
+	if (!executablePath) {
+		// running locally
+		const puppeteer = require("puppeteer");
+		return puppeteer.launch({
+			args: chromium.args,
+			headless: true,
+			defaultViewport: {
+				width: 1280,
+				height: 720,
+			},
+			ignoreHTTPSErrors: true,
+		});
+	}
+
+	return chromium.puppeteer.launch({
+		args: chromium.args,
+		defaultViewport: {
+			width: 1280,
+			height: 720,
+		},
+		executablePath,
+		headless: chromium.headless,
+		ignoreHTTPSErrors: true,
+	});
 }
 
 export default async (req, res) => {
@@ -16,22 +35,7 @@ export default async (req, res) => {
 
 async function getdata(email, password) {
 	// const browser = await puppeteer.launch();
-	try {
-		let browser = await puppeteer.launch({
-			args: [
-				...chrome.args,
-				"--hide-scrollbars",
-				"--disable-web-security",
-			],
-			defaultViewport: chrome.defaultViewport,
-			executablePath: await chrome.executablePath,
-			headless: true,
-			ignoreHTTPSErrors: true,
-		});
-	} catch (err) {
-		console.error(err);
-		return "{}";
-	}
+	let browser = await getBrowserInstance();
 	let page = await browser.newPage();
 	await page.goto("https://bux.bracu.ac.bd/login"),
 		await page.type("#login-email", email);

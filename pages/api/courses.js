@@ -1,5 +1,33 @@
-let chrome = {};
-let puppeteer;
+import chromium from "chrome-aws-lambda";
+
+async function getBrowserInstance() {
+	const executablePath = await chromium.executablePath;
+
+	if (!executablePath) {
+		// running locally
+		const puppeteer = require("puppeteer");
+		return puppeteer.launch({
+			args: chromium.args,
+			headless: true,
+			defaultViewport: {
+				width: 1280,
+				height: 720,
+			},
+			ignoreHTTPSErrors: true,
+		});
+	}
+
+	return chromium.puppeteer.launch({
+		args: chromium.args,
+		defaultViewport: {
+			width: 1280,
+			height: 720,
+		},
+		executablePath,
+		headless: chromium.headless,
+		ignoreHTTPSErrors: true,
+	});
+}
 
 if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
 	// running on the Vercel platform.
@@ -17,23 +45,7 @@ export default async (req, res) => {
 async function getdata(cookies, link) {
 	// const browser = await puppeteer.launch(); //{ headless: false }
 
-	try {
-		let browser = await puppeteer.launch({
-			args: [
-				...chrome.args,
-				"--hide-scrollbars",
-				"--disable-web-security",
-			],
-			defaultViewport: chrome.defaultViewport,
-			executablePath: await chrome.executablePath,
-			headless: true,
-			ignoreHTTPSErrors: true,
-		});
-	} catch (err) {
-		console.error(err);
-		return null;
-	}
-
+	let browser = await getBrowserInstance();
 	let page = await browser.newPage();
 	cookies = JSON.parse(cookies);
 	await page.setCookie(...cookies);
