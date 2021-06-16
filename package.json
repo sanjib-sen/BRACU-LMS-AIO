@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/data-grid": "^4.0.0-alpha.30",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "clsx": "latest",
     "js-cookie": "^2.2.1",
     "next": "latest",

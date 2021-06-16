@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { Controller, useForm } from "react-hook-form";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Body from "../components/container";
-
+import Alert from "@material-ui/lab/Alert";
 const useStyle = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -24,6 +23,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const login = () => {
+	const [warning, setWarning] = useState();
 	const classes = useStyle();
 	const { handleSubmit, control } = useForm({
 		defaultValues: {
@@ -33,6 +33,7 @@ const login = () => {
 	});
 
 	const onSubmit = async (values) => {
+		setWarning("Logging");
 		const email = values.email;
 		const password = values.password;
 		const res = await fetch(`/api/login`, {
@@ -41,17 +42,31 @@ const login = () => {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ email, password }),
-		}).then((tmpres) => tmpres.json());
-		const string = JSON.stringify(res);
-		localStorage.setItem("cookies", string);
-		window.location.href = "dashboard";
+		});
+		const resp = await res.json();
+		const string = JSON.stringify(resp);
+		if (string.trim().length > 5) {
+			localStorage.setItem("cookies", string);
+			window.location.href = "dashboard";
+		} else {
+			setWarning("warning");
+		}
 	};
+	var alert;
+	if (warning == "warning") {
+		alert = <Alert severity="error">Wrong Email/Password</Alert>;
+	} else if (warning == "Logging") {
+		alert = <Alert severity="info">Logging in please wait</Alert>;
+	} else {
+		alert = "";
+	}
 	return (
 		<Body>
 			<div className={classes.paper}>
 				<Typography component="h1" variant="h5">
 					Sign in
 				</Typography>
+				{alert}
 				<form
 					className={classes.form}
 					noValidate

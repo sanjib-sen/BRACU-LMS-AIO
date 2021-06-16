@@ -9,6 +9,7 @@ async function getdata(cookies, link) {
 	let page = await browser.newPage();
 	cookies = JSON.parse(cookies);
 	await page.setCookie(...cookies);
+	await page.setDefaultNavigationTimeout(0);
 	await page.goto(link, { waitUntil: "networkidle2" });
 	let texts = await page.evaluate(() => {
 		data = [];
@@ -26,20 +27,27 @@ async function getdata(cookies, link) {
 			const childtitle =
 				parent.parentElement.parentElement.parentElement
 					.firstElementChild;
-			title = childtitle.innerHTML.trim();
+			title =
+				childtitle.innerHTML != "" ? childtitle.innerHTML.trim() : "";
 
 			if (title == "") {
 				const childtitle =
 					parent.parentElement.parentElement.parentElement
 						.firstElementChild.nextElementSibling;
-				title = childtitle.innerHTML.trim().split("\n")[0];
+				title = childtitle.innerHTML
+					? childtitle.innerHTML.trim().split("\n")[0]
+					: " ";
 			}
 
 			typedate = parent.innerHTML.trim();
 
-			assesmenttype = typedate.split("due")[0].trim();
+			assesmenttype = typedate.split("due")[0]
+				? typedate.split("due")[0].trim()
+				: " ";
 			if (assesmenttype == "") assesmenttype = "Exam";
-			date = typedate.split("due")[1].trim();
+			date = typedate.split("due")[1]
+				? typedate.split("due")[1].trim()
+				: " ";
 
 			var assesment = {
 				id: courseid + count.toString(),

@@ -91,6 +91,7 @@ const DataTable = () => {
 
 		async function setThisWeek(list) {
 			list.map((task) => {
+				const task_day = task.raw.slice(0, 10);
 				const task_date = parseInt(task.raw.slice(8, 10));
 				const task_mm = task.raw.slice(5, 7);
 				const task_yy = task.raw.slice(0, 4);
@@ -99,15 +100,8 @@ const DataTable = () => {
 				)
 					.toISOString()
 					.slice(0, 10);
-				const nweek_date = parseInt(nextWeek.slice(8, 10));
-				const nweek_mm = nextWeek.slice(5, 7);
-				const nweek_yy = nextWeek.slice(0, 4);
 
-				if (
-					task_date == nweek_date &&
-					task_mm == nweek_mm &&
-					task_yy == nweek_yy
-				) {
+				if (task_day > date && task_day < nextWeek) {
 					thisWeek.push(task);
 				}
 			});

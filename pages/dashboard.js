@@ -5,6 +5,7 @@ import { Button } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import AppNavBar from "../components/DashBar";
 import Footer from "../components/footer";
+import Alert from "@material-ui/lab/Alert";
 
 const columns = [
 	{ field: "id", hide: true },
@@ -15,17 +16,25 @@ const columns = [
 		sortable: false,
 		width: 900,
 	},
+	{ field: "semester", headerName: "Semester", width: 300 },
 ];
 var lst = [];
 
-function submitHandler() {
-	console.log(lst);
-	localStorage.setItem("courses", lst);
-	window.location.href = "summary";
-}
-
 const DataTable = () => {
 	const [rows, setRow] = useState([]);
+	const [warning, setWarning] = useState();
+
+	function submitHandler() {
+		if (lst.length < 7) {
+			setWarning(null);
+			console.log(lst);
+			localStorage.setItem("courses", lst);
+			window.location.href = "summary";
+		} else {
+			setWarning("warning");
+		}
+	}
+
 	useEffect(() => {
 		const cookies = localStorage.getItem("cookies");
 		async function fetchAPI() {
@@ -45,6 +54,13 @@ const DataTable = () => {
 	return (
 		<div>
 			<AppNavBar></AppNavBar>
+			{warning != null ? (
+				<Alert severity="error">
+					ভাই আমি নুব, আমি ৬ টার বেশি কোর্স সামলাতে পারিনা!
+				</Alert>
+			) : (
+				""
+			)}
 			{rows.length > 0 ? (
 				<div style={{ height: 650, width: "100%" }}>
 					<DataGrid

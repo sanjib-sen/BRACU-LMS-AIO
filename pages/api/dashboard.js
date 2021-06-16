@@ -24,6 +24,10 @@ async function getdata(cookies) {
 					"https://bux.bracu.ac.bd/courses/" +
 					parent.parentNode.getAttribute("data-course-key") +
 					"/course/",
+				semester: parent.parentNode
+					.getAttribute("data-course-key")
+					.split("+")[2]
+					.split("/")[0],
 			};
 			data.push(course);
 		}
