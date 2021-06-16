@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import Typography from "@material-ui/core/Typography";
+import { Grid } from "@material-ui/core";
 
 const columns = [
 	{ field: "id", hide: true },
-	{ field: "date", headerName: "Deadline", width: 400 },
-	{ field: "type", headerName: "Assesment Type", width: 300 },
+	{ field: "raw", hide: true },
+	{ field: "date", headerName: "Deadline", width: 200 },
+	{ field: "type", headerName: "Assesment Type", width: 200 },
 	{
 		field: "title",
-		headerName: "Assesment Name3",
+		headerName: "Assesment Name",
 		sortable: false,
 		width: 720,
 	},
@@ -23,7 +25,7 @@ const DataTable = () => {
 		const links = localStorage.getItem("courses").split(",");
 		async function fetchAPI(link) {
 			const courseID = link.split("+")[1];
-			await fetch(`http://localhost:3000/api/courses`, {
+			await fetch(`/api/courses`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -37,10 +39,9 @@ const DataTable = () => {
 		// One by One:
 		// async function childTask() {
 		// 	for (const link of links) {
-		// 		await fetchAPI(link);
+		// 		await fetchAPI(link).then(() => setCourses(list));
 		// 	}
 		// }
-
 		// Parallel:
 		async function childTask() {
 			const promises = links.map(async (link) => {
@@ -61,22 +62,36 @@ const DataTable = () => {
 	return (
 		<div>
 			<Typography variant="h4" align="center">
-				Welcome
+				All Assesments by Course
 			</Typography>
-			{courses.map((course) => (
-				<div>
-					<Typography variant="h4" align="center">
-						{course.courseId}
-					</Typography>
-					<div style={{ height: 400, width: "100%" }}>
-						<DataGrid
-							rows={course.rows}
-							columns={columns}
-							pageSize={5}
-						/>
+			{courses.length > 0 ? (
+				courses.map((course) => (
+					<div>
+						<Typography variant="h4" align="center">
+							{course.courseId}
+						</Typography>
+						<Grid style={{ height: 550, width: "100%" }}>
+							<DataGrid
+								disableSelectionOnClick
+								rows={course.rows}
+								columns={columns}
+								pageSize={8}
+								density
+								sortModel={[
+									{
+										field: "raw",
+										sort: "desc",
+									},
+								]}
+							/>
+						</Grid>
 					</div>
-				</div>
-			))}
+				))
+			) : (
+				<Typography variant="h4" align="center">
+					Retrieving Data..... <br></br> Please wait
+				</Typography>
+			)}
 		</div>
 	);
 };

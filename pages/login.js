@@ -7,109 +7,108 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Body from "../components/container";
 const useStyle = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+	paper: {
+		marginTop: theme.spacing(8),
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+	},
+	form: {
+		width: "100%", // Fix IE 11 issue.
+		marginTop: theme.spacing(1),
+	},
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
 }));
 
 const login = () => {
-  const classes = useStyle();
-  const { handleSubmit, control } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+	const classes = useStyle();
+	const { handleSubmit, control } = useForm({
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
 
-  const onSubmit = async (values) => {
-    const email = values.email;
-    const password = values.password;
-    const res = await fetch(`http://localhost:3000/api/login`,{
-      method: 'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify({email, password})
-    }).then((tmpres)=>tmpres.json());
-    const string = JSON.stringify(res);
-    localStorage.setItem('cookies',string);
-    window.location.href = "http://localhost:3000/dashboard";
+	const onSubmit = async (values) => {
+		const email = values.email;
+		const password = values.password;
+		const res = await fetch(`/api/login`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ email, password }),
+		}).then((tmpres) => tmpres.json());
+		const string = JSON.stringify(res);
+		localStorage.setItem("cookies", string);
+		window.location.href = "http://localhost:3000/dashboard";
+	};
+	return (
+		<Body>
+			<div className={classes.paper}>
+				<Typography component="h1" variant="h5">
+					Sign in
+				</Typography>
+				<form
+					className={classes.form}
+					noValidate
+					onSubmit={handleSubmit(onSubmit)}
+				>
+					<Controller
+						control={control}
+						name="email"
+						render={({ field }) => (
+							<TextField
+								{...field}
+								variant="outlined"
+								margin="normal"
+								required
+								fullWidth
+								// id="email"
+								label="Email Address"
+								// name="email"
+								// autoComplete="email"
+								// autoFocus
+							/>
+						)}
+					/>
 
-  };
-  return (
-    <Body>
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <Controller
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                // id="email"
-                label="Email Address"
-                // name="email"
-                // autoComplete="email"
-                // autoFocus
-              />
-            )}
-          />
+					<Controller
+						control={control}
+						name="password"
+						render={({ field }) => (
+							<TextField
+								{...field}
+								variant="outlined"
+								margin="normal"
+								required
+								fullWidth
+								// id="password"
+								label="Password"
+								type="password"
+								// name="password"
+								// autoComplete="current-password"
+								// autoFocus
+							/>
+						)}
+					/>
 
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                // id="password"
-                label="Password"
-                type="password"
-                // name="password"
-                // autoComplete="current-password"
-                // autoFocus
-              />
-            )}
-          />
-
-          {/* <FormControlLabel control={<Checkbox value="remember" color="primary"/>} label="Remember Me"/> */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-        </form>
-      </div>
-    </Body>
-  );
+					{/* <FormControlLabel control={<Checkbox value="remember" color="primary"/>} label="Remember Me"/> */}
+					<Button
+						type="submit"
+						fullWidth
+						variant="contained"
+						color="primary"
+						className={classes.submit}
+					>
+						Sign In
+					</Button>
+				</form>
+			</div>
+		</Body>
+	);
 };
 
 export default login;
