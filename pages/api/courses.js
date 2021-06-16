@@ -29,15 +29,6 @@ async function getBrowserInstance() {
 	});
 }
 
-if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-	// running on the Vercel platform.
-	chrome = require("chrome-aws-lambda");
-	puppeteer = require("puppeteer-core");
-} else {
-	// running locally.
-	puppeteer = require("puppeteer");
-}
-
 export default async (req, res) => {
 	res.status(200).json(await getdata(req.body.cookies, req.body.link));
 };
