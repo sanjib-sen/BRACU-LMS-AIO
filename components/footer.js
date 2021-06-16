@@ -7,16 +7,15 @@ export default function Footer() {
 		<Typography variant="body2" color="textSecondary" align="center">
 			<br></br>
 			<br></br>
+			<br></br>A tribute to Mahbub Majumdar Sir {"❤"}
 			<br></br>
-			{/* {"Copyright © "} */}
+			{"Made By "}
 			<Link
 				color="inherit"
-				href="https://www.facebook.com/matrixedraku/posts/2825513557703292"
+				href="https://www.facebook.com/sanjib.kumarsen.963/"
 			>
-				A tribute to Mahbub Majumdar Sir {"❤"}
+				Sanjib Kumar Sen
 			</Link>{" "}
-			{/* {new Date().getFullYear()} */}
-			{"."}
 		</Typography>
 	);
 }
