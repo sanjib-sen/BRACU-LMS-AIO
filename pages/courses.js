@@ -54,9 +54,6 @@ const DataTable = () => {
 		(async () => {
 			await childTask().then(() => setCourses(list));
 		})();
-
-		// doThis();
-		// setCourses(list);
 	}, []);
 
 	return (

@@ -8,8 +8,8 @@ async function getdata(email, password) {
 	const browser = await puppeteer.launch({ headless: false });
 	let page = await browser.newPage();
 	await page.goto("https://bux.bracu.ac.bd/login"),
-		await page.type("#login-email", email, { delay: 30 });
-	await page.type("#login-password", password, { delay: 30 });
+		await page.type("#login-email", email);
+	await page.type("#login-password", password);
 
 	await page.click("#login > button");
 	await page.waitForNavigation({ waitUntil: "networkidle0" });

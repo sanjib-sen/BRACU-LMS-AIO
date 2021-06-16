@@ -45,11 +45,11 @@ const DataTable = () => {
 			<Typography variant="h4" align="center">
 				Select your advised courses for this semester
 			</Typography>
-			<div style={{ height: 400, width: "100%" }}>
+			<div style={{ height: 600, width: "100%" }}>
 				<DataGrid
 					rows={rows}
 					columns={columns}
-					pageSize={5}
+					pageSize={10}
 					checkboxSelection
 					onSelectionModelChange={(e) => (lst = e.selectionModel)}
 				/>

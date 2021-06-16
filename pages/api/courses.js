@@ -1,57 +1,55 @@
 const puppeteer = require("puppeteer");
 
-
 export default async (req, res) => {
-  res.status(200).json(await getdata(req.body.cookies, req.body.link))
-}
+	res.status(200).json(await getdata(req.body.cookies, req.body.link));
+};
 
 async function getdata(cookies, link) {
+	const browser = await puppeteer.launch({ headless: false });
+	let page = await browser.newPage();
+	cookies = JSON.parse(cookies);
+	await page.setCookie(...cookies);
+	await page.goto(link, { waitUntil: "networkidle2" });
+	let texts = await page.evaluate(() => {
+		data = [];
+		const parents = document.getElementsByClassName(
+			"localized-datetime subtitle-name",
+		);
+		count = 0;
+		for (var parent of parents) {
+			if (parent.getAttribute("data-datetime") == "") {
+				continue;
+			}
 
-  const browser = await puppeteer.launch({ headless: false });
-  let page = await browser.newPage();
-  cookies = JSON.parse(cookies);
-  await page.setCookie(...cookies);
-  await page.goto(link, { waitUntil: "networkidle2" });
-  let texts = await page.evaluate(() => {
-    data = [];
-    const parents = document.getElementsByClassName(
-      "localized-datetime subtitle-name"
-    );
-    count = 0;
-    for (var parent of parents) {
-      if (parent.getAttribute("data-datetime") == "") {
-        continue;
-      }
+			const childtitle =
+				parent.parentElement.parentElement.parentElement
+					.firstElementChild;
+			title = childtitle.innerHTML.trim();
 
-      const childtitle =
-        parent.parentElement.parentElement.parentElement.firstElementChild;
-      title = childtitle.innerHTML.trim();
+			if (title == "") {
+				const childtitle =
+					parent.parentElement.parentElement.parentElement
+						.firstElementChild.nextElementSibling;
+				title = childtitle.innerHTML.trim().split("\n")[0];
+			}
 
-      if (title == "") {
-        const childtitle =
-          parent.parentElement.parentElement.parentElement.firstElementChild
-            .nextElementSibling;
-        title = childtitle.innerHTML.trim().split("\n")[0];
-      }
+			typedate = parent.innerHTML.trim();
 
-      typedate = parent.innerHTML.trim();
+			assesmenttype = typedate.split("due")[0].trim();
+			if (assesmenttype == "") assesmenttype = "Exam";
+			date = typedate.split("due")[1].trim();
 
-      assesmenttype = typedate.split("due")[0].trim();
-      if (assesmenttype == "") assesmenttype = "Exam";
-      date = typedate.split("due")[1].trim();
-
-      var assesment = {
-        id: count++,
-        title: title,
-        raw: parent.getAttribute("data-datetime"),
-        type: assesmenttype,
-        date: date,
-      };
-      data.push(assesment);
-    }
-    return data;
-  });
-  browser.close();
-  return texts;
-
+			var assesment = {
+				id: count++,
+				title: title,
+				raw: parent.getAttribute("data-datetime"),
+				type: assesmenttype,
+				date: date,
+			};
+			data.push(assesment);
+		}
+		return data;
+	});
+	browser.close();
+	return texts;
 }
