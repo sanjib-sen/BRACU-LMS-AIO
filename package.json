@@ -2,6 +2,7 @@
 	"name": "bux",
 	"version": "4.0.0",
 	"private": true,
+	"author": "Sanjib Kumar Sen <sksenonline@gmail.com> (https://www.facebook.com/sanjib.kumarsen.963/)",
 	"dependencies": {
 		"@material-ui/core": "latest",
 		"@material-ui/data-grid": "^4.0.0-alpha.30",
