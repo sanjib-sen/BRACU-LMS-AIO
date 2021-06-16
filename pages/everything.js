@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
 const columns = [
 	{ field: "id", hide: true },
 	{ field: "raw", hide: true },
-	{ field: "date", headerName: "Deadline", flex: 1.5, sortable: false },
-	{ field: "courseID", headerName: "Course", flex: 1 },
-	{ field: "type", headerName: "Assesment Type", flex: 2.25 },
+	{ field: "date", headerName: "Deadline", width: 180, sortable: false },
+	{ field: "courseID", headerName: "Course", width: 122 },
+	{ field: "type", headerName: "Assesment Type", width: 200 },
 	{
 		field: "title",
 		headerName: "Assesment Name",
 		sortable: false,
-		flex: 8,
+		width: 450,
 	},
 ];
 
@@ -82,7 +82,7 @@ const DataTable = () => {
 	function goTo() {
 		if (localStorage.getItem("cookies") != null) {
 			if (localStorage.getItem("courses") == null) {
-				window.location.href = "summary";
+				window.location.href = "dashboard";
 			}
 		} else {
 			window.location.href = "login";
@@ -93,7 +93,7 @@ const DataTable = () => {
 			{getData() ? goTo() : ""}
 			<AppNavBar>
 				<Typography variant="h6" className={classes.title}>
-					All Assesments
+					All
 				</Typography>
 			</AppNavBar>
 			{courses.length > 0 ? (

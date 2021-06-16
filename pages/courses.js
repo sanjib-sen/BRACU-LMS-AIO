@@ -9,13 +9,13 @@ import Footer from "../components/footer";
 const columns = [
 	{ field: "id", hide: true },
 	{ field: "raw", hide: true },
-	{ field: "date", headerName: "Deadline", flex: 1.5, sortable: false },
-	{ field: "type", headerName: "Assesment Type", flex: 2.25, width: 200 },
+	{ field: "date", headerName: "Deadline", width: 180, sortable: false },
+	{ field: "type", headerName: "Assesment Type", width: 200, width: 200 },
 	{
 		field: "title",
 		headerName: "Assesment Name",
 		sortable: false,
-		flex: 10,
+		width: 450,
 	},
 ];
 
@@ -83,7 +83,7 @@ const DataTable = () => {
 	function goTo() {
 		if (localStorage.getItem("cookies") != null) {
 			if (localStorage.getItem("courses") == null) {
-				window.location.href = "summary";
+				window.location.href = "dashboard";
 			}
 		} else {
 			window.location.href = "login";
