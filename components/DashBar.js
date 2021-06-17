@@ -32,7 +32,7 @@ export default function AppNavBar() {
 					<Button color="inherit" href="/">
 						Home
 					</Button>
-					<Button variant="contained" color="primary" href="faculty">
+					<Button variant="inherit" href="faculty">
 						Faculty
 					</Button>
 					<Button color="inherit" onClick={logout}>
