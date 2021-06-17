@@ -25,7 +25,7 @@ const DataTable = () => {
 	const [warning, setWarning] = useState();
 
 	function submitHandler() {
-		if (lst.length < 7) {
+		if (lst.length < 6) {
 			setWarning(null);
 			console.log(lst);
 			localStorage.setItem("courses", lst);
@@ -73,7 +73,7 @@ const DataTable = () => {
 			<AppNavBar></AppNavBar>
 			{warning != null ? (
 				<Alert severity="error">
-					আমি DMC Topper না তাই ৬ টার বেশি কোর্স সামলাতে পারিনা!
+					আমি DMC Topper না তাই ৫ টার বেশি কোর্স সামলাতে পারিনা!
 				</Alert>
 			) : (
 				""
