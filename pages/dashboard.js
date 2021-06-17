@@ -76,14 +76,20 @@ const DataTable = () => {
 				""
 			)}
 			{rows.length > 0 ? (
-				<div style={{ height: 650, width: "100%" }}>
-					<DataGrid
-						rows={rows}
-						columns={columns}
-						pageSize={10}
-						checkboxSelection
-						onSelectionModelChange={(e) => (lst = e.selectionModel)}
-					/>
+				<div>
+					<div style={{ height: 650, width: "100%" }}>
+						<DataGrid
+							rows={rows}
+							columns={columns}
+							pageSize={10}
+							checkboxSelection
+							onSelectionModelChange={(e) =>
+								(lst = e.selectionModel)
+							}
+						/>
+					</div>
+					<br></br>
+					<br></br>
 					<Grid
 						container
 						align="center"
@@ -96,12 +102,17 @@ const DataTable = () => {
 								align="center"
 								justify="center"
 								p={10}
+								variant="contained"
+								size="large"
+								color="primary"
 								onClick={submitHandler}
 							>
 								Submit
 							</Button>
 						</Grid>
 					</Grid>
+					<br></br>
+					<br></br>
 				</div>
 			) : (
 				<Typography variant="h4" align="center">

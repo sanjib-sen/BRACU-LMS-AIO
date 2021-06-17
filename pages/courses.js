@@ -40,7 +40,7 @@ const DataTable = () => {
 		const links = localStorage.getItem("courses").split(",");
 		async function fetchAPI(link) {
 			const courseID = link.split("+")[1];
-			await fetch(`/api/courses`, {
+			await fetch(`/api/tasks`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -115,7 +115,7 @@ const DataTable = () => {
 								sortModel={[
 									{
 										field: "raw",
-										sort: "desc",
+										sort: "asc",
 									},
 								]}
 							/>

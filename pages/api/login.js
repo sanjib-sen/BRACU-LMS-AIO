@@ -21,12 +21,11 @@ async function getdata(email, password) {
 	await page.type("#login-password", password);
 
 	await page.click("#login > button");
-	await page.setDefaultNavigationTimeout(9000);
+	page.setDefaultNavigationTimeout(9000);
 
 	try {
 		await page.waitForNavigation({ waitUntil: "networkidle2" });
 	} catch (error) {
-		console.log("error asche");
 		browser.close();
 		return "{}";
 	}

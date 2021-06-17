@@ -47,7 +47,7 @@ const DataTable = () => {
 		const cookies = localStorage.getItem("cookies");
 		const links = localStorage.getItem("courses").split(",");
 		async function fetchAPI(link) {
-			await fetch(`/api/courses`, {
+			await fetch(`/api/tasks`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -74,12 +74,13 @@ const DataTable = () => {
 		}
 		async function setTomorrow(list) {
 			list.map((task) => {
+				const task_day = task.raw.slice(0, 10);
 				const nextDay = new Date(
 					today_raw.getTime() + 1 * 24 * 60 * 60 * 1000,
 				)
 					.toISOString()
 					.slice(0, 10);
-				if (date == nextDay) {
+				if (task_day == nextDay) {
 					tomorrow.push(task);
 				}
 			});
@@ -94,7 +95,7 @@ const DataTable = () => {
 					.toISOString()
 					.slice(0, 10);
 
-				if (task_day > date && task_day < nextWeek) {
+				if (task_day >= date && task_day <= nextWeek) {
 					thisWeek.push(task);
 				}
 			});
@@ -102,7 +103,10 @@ const DataTable = () => {
 
 		async function setThisMonth(list) {
 			list.map((task) => {
-				if (task.raw.slice(5, 7) == todays_mm) {
+				if (
+					task.raw.slice(5, 7) == todays_mm &&
+					task.raw.slice(0, 10) >= date
+				) {
 					thisMonth.push(task);
 				}
 			});
@@ -176,7 +180,7 @@ const DataTable = () => {
 								sortModel={[
 									{
 										field: "raw",
-										sort: "desc",
+										sort: "asc",
 									},
 								]}
 							/>

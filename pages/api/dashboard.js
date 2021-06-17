@@ -20,7 +20,7 @@ async function getdata(cookies) {
 	cookies = JSON.parse(cookies);
 	const link = "https://bux.bracu.ac.bd/dashboard";
 	await page.setCookie(...cookies);
-
+	page.setDefaultNavigationTimeout(0);
 	await page.goto(link, { waitUntil: "networkidle2" });
 	let texts = await page.evaluate(() => {
 		data = [];

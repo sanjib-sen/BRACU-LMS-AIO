@@ -40,7 +40,7 @@ const DataTable = () => {
 		const cookies = localStorage.getItem("cookies");
 		const links = localStorage.getItem("courses").split(",");
 		async function fetchAPI(link) {
-			await fetch(`/api/courses`, {
+			await fetch(`/api/alltasks`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
