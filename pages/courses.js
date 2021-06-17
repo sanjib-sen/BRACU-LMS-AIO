@@ -53,19 +53,19 @@ const DataTable = () => {
 		}
 
 		// One by One:
-		async function childTask() {
-			for (const link of links) {
-				await fetchAPI(link).then(() => setCourses(list));
-			}
-		}
-		// Parallel:
 		// async function childTask() {
-		// 	const promises = links.map(async (link) => {
-		// 		return await fetchAPI(link);
-		// 	});
-
-		// 	await Promise.all(promises);
+		// 	for (const link of links) {
+		// 		await fetchAPI(link).then(() => setCourses(list));
+		// 	}
 		// }
+		// Parallel:
+		async function childTask() {
+			const promises = links.map(async (link) => {
+				return await fetchAPI(link);
+			});
+
+			await Promise.all(promises);
+		}
 
 		(async () => {
 			await childTask().then(() => setCourses(list));
