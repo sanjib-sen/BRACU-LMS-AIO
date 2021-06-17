@@ -162,7 +162,7 @@ const DataTable = () => {
 			{getData() ? goTo() : ""}
 			<AppNavBar>
 				<Typography variant="h6" className={classes.title}>
-					Brief
+					At a glance
 				</Typography>
 			</AppNavBar>
 			{courses.length > 0 ? (

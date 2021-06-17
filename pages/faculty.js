@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import Typography from "@material-ui/core/Typography";
-import AppNavBar from "../components/FacBar";
+import AppNavBar from "../components/NavBar";
 import Footer from "../components/footer";
 import Head from "next/head";
+import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles((theme) => ({
+	root: {
+		flexGrow: 1,
+	},
+	menuButton: {
+		marginRight: theme.spacing(2),
+	},
+	title: {
+		flexGrow: 1,
+	},
+}));
+
 const columns = [
 	{ field: "id", headerName: "Initial", width: 122 },
 	{ field: "Name", headerName: "Name", width: 250 },
@@ -622,15 +635,23 @@ var rows = [
 ];
 
 const DataTable = () => {
+	const classes = useStyles();
 	return (
 		<div>
 			<Head>
 				<title>CSE Faculty List</title>
 			</Head>
-			<AppNavBar></AppNavBar>
+
+			<AppNavBar>
+				<Typography variant="h6" className={classes.title}>
+					List of Faculties
+				</Typography>
+			</AppNavBar>
+			<br></br>
 			<Typography variant="h4" align="center">
-				List of CSE Faculties
+				Faculties of CSE Department
 			</Typography>
+			<br></br>
 			<div style={{ height: 900, width: "100%" }}>
 				<DataGrid
 					rows={rows}

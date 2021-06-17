@@ -101,7 +101,7 @@ const DataTable = () => {
 
 			<AppNavBar>
 				<Typography variant="h6" className={classes.title}>
-					Courses
+					Deadlines by Course
 				</Typography>
 			</AppNavBar>
 			{courses.length > 0 ? (

@@ -96,11 +96,17 @@ const DataTable = () => {
 			{getData() ? goTo() : ""}
 			<AppNavBar>
 				<Typography variant="h6" className={classes.title}>
-					All
+					All Deadlines
 				</Typography>
 			</AppNavBar>
 			{courses.length > 0 ? (
 				<div>
+					{" "}
+					<br></br>
+					<Typography variant="h4" align="center">
+						All in One
+					</Typography>
+					<br></br>
 					<Grid style={{ height: 900, width: "100%" }}>
 						<DataGrid
 							disableSelectionOnClick

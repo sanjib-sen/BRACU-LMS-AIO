@@ -114,12 +114,14 @@ const login = () => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						color="primary"
 						className={classes.submit}
 					>
 						Sign In
 					</Button>
 				</form>
+				<Button variant="contained" color="primary" href="faculty">
+					CSE Faculty List
+				</Button>
 			</div>
 		</Body>
 	);
