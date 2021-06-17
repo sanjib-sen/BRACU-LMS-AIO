@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import Typography from "@material-ui/core/Typography";
-import { Button } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
-import AppNavBar from "../components/DashBar";
+import AppNavBar from "../components/FacBar";
 import Footer from "../components/footer";
-import Alert from "@material-ui/lab/Alert";
-
+import Head from "next/head";
 const columns = [
 	{ field: "id", headerName: "Initial", width: 122 },
-	{ field: "Name", headerName: "Name", width: 400 },
-	{ field: "Email", headerName: "Initial", width: 400, sortable: false },
+	{ field: "Name", headerName: "Name", width: 250 },
+	{ field: "Email", headerName: "Email", width: 400, sortable: false },
 ];
 var rows = [
 	{
@@ -627,12 +624,25 @@ var rows = [
 const DataTable = () => {
 	return (
 		<div>
+			<Head>
+				<title>CSE Faculty List</title>
+			</Head>
 			<AppNavBar></AppNavBar>
 			<Typography variant="h4" align="center">
-				List of All Faculties
+				List of CSE Faculties
 			</Typography>
 			<div style={{ height: 900, width: "100%" }}>
-				<DataGrid rows={rows} columns={columns} pageSize={30} />
+				<DataGrid
+					rows={rows}
+					columns={columns}
+					pageSize={30}
+					sortModel={[
+						{
+							field: "id",
+							sort: "asc",
+						},
+					]}
+				/>
 			</div>
 			<Footer />
 		</div>

@@ -5,7 +5,7 @@ import { Grid } from "@material-ui/core";
 import AppNavBar from "../components/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "../components/footer";
-
+import Head from "next/head";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -156,6 +156,9 @@ const DataTable = () => {
 	}
 	return (
 		<div>
+			<Head>
+				<title>At a glance</title>
+			</Head>
 			{getData() ? goTo() : ""}
 			<AppNavBar>
 				<Typography variant="h6" className={classes.title}>

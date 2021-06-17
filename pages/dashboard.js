@@ -6,7 +6,7 @@ import { Grid } from "@material-ui/core";
 import AppNavBar from "../components/DashBar";
 import Footer from "../components/footer";
 import Alert from "@material-ui/lab/Alert";
-
+import Head from "next/head";
 const columns = [
 	{ field: "id", hide: true },
 	{ field: "course_id", headerName: "Course Code", width: 160 },
@@ -66,6 +66,9 @@ const DataTable = () => {
 	}
 	return (
 		<div>
+			<Head>
+				<title>Select Courses</title>
+			</Head>
 			{getData() ? goTo() : ""}
 			<AppNavBar></AppNavBar>
 			{warning != null ? (
