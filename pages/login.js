@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Body from "../components/container";
 import Alert from "@material-ui/lab/Alert";
+
 const useStyle = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
