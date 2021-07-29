@@ -23,7 +23,6 @@ var lst = [];
 const DataTable = () => {
 	const [rows, setRow] = useState([]);
 	const [warning, setWarning] = useState();
-
 	function submitHandler() {
 		if (lst.length < 6) {
 			setWarning(null);
@@ -73,7 +72,7 @@ const DataTable = () => {
 			<AppNavBar></AppNavBar>
 			{warning != null ? (
 				<Alert severity="error">
-					আমি DMC Topper না তাই ৫ টার বেশি কোর্স সামলাতে পারিনা!
+					Do not select more than 6 courses!
 				</Alert>
 			) : (
 				""
@@ -87,7 +86,7 @@ const DataTable = () => {
 							pageSize={10}
 							checkboxSelection
 							onSelectionModelChange={(e) =>
-								(lst = e.selectionModel)
+								(lst = e)
 							}
 						/>
 					</div>
